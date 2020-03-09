@@ -1,12 +1,13 @@
 #!/bin/bash -x
-echo " ****** WELCOME TO EMPLOYEE WAGE COMPUTATION ***** "
+echo "****** WELCOME TO EMPLOYEE WAGES ******"
 WAGE_PER_HRS=20;
 WORKING_DAY_PER_MONTH=20;
+TOTAL_WORKING_HRS=100;
 IS_FULL_TIME=1;
 IS_PART_TIME=2;
 totalWorkingDays=0;
 totalEmployeeHrs=0;
-while (( totalWorkingDays<$WORKING_DAY_PER_MONTH ))
+while (( totalEmployeeHrs<=$TOTAL_WORKING_HRS && totalWorkingDays<=$WORKING_DAY_PER_MONTH ))
 do
 	((totalWorkingDays++));
 	empCheck=$((RANDOM%3));
@@ -25,7 +26,7 @@ do
    dailyWage=$(( $empHrs * $WAGE_PER_HRS ));
    echo $dailyWage;
 done
-totalSalary=$(( $totalEmployeeHrs*$WAGE_PER_HRS ))
+totalSalary=$(( $totalEmployeeHrs * $WAGE_PER_HRS ));
 echo $totalSalary;
 
 
