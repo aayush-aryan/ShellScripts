@@ -20,16 +20,18 @@ function getWorkHrs(){
    esac
    echo $empHrs
 }
-while (( totalEmployeeHrs<=$TOTAL_WORKING_HRS && totalWorkingDays<=$WORKING_DAY_PER_MONTH ))
+declare -A dailyWage;
+while (( totalEmployeeHrs<$TOTAL_WORKING_HRS && totalWorkingDays<$WORKING_DAY_PER_MONTH ))
 do
+   ((totalWorkingDays++));
 	empCheck=$((RANDOM%3));
 	empHrs="$( getWorkHrs $empCheck )";
    totalEmployeeHrs=$(( $totalEmployeeHrs + $empHrs ));
-   dailyWage[totalWorkingDays]=$(( $empHrs * $WAGE_PER_HRS ));
-   ((totalWorkingDays++));
+   dailyWage["Day$totalWorkingDays"]="$(($empHrs * $WAGE_PER_HRS))";
 done
 totalSalary=$(( $totalEmployeeHrs * $WAGE_PER_HRS ));
-dailyWage[totalWorkingDays]=$totalSalary;
-echo ${dailyWage[@]};
+dailyWage["TotalSalary"]="$totalSalary";
+echo "Working Days :  ${!dailyWage[@]}";
+echo "Wage         :${dailyWage[@]}";
 
 
